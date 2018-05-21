@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - ./data/redis/data:/data
+    entrypoint: redis-server --appendonly yes
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    volumes:
+      - ./data/postgres/tmp:/var/lib/postgresql/data
+      - ./data/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
