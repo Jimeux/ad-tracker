@@ -1,3 +1,5 @@
 target
 .idea
 .DS_Store
+data/postgres/tmp
+data/redis/data
