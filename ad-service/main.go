@@ -13,13 +13,13 @@ func initCache() *redis.Pool {
 		MaxIdle:     3,
 		IdleTimeout: 240 * time.Second,
 		Dial: func() (redis.Conn, error) {
-			return redis.Dial("tcp", "localhost")
+			return redis.Dial("tcp", "127.0.0.1:6380")
 		},
 	}
 }
 
 func initDb() *xorm.Engine {
-	db, err := xorm.NewEngine("postgres", "localhost")
+	db, err := xorm.NewEngine("postgres", "postgresql://default:default@127.0.0.1:5435/todos?sslmode=disable")
 	if err != nil {
 		panic("database could not be initialised: " + err.Error())
 	}
